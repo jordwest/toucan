@@ -76,7 +76,7 @@ if(user)
     token = RoleToken('guest');
 }
 
-if(user.can('edit own profile'))
+if(token.can('edit own profile'))
 {
     // ..... edit profile ......
 }
