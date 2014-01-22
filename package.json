@@ -1,8 +1,24 @@
 {
-  "name": "toucan",
-  "description": "A super simple library for access control with access tokens",
-  "devDependencies": {
-    "mocha": "~1.17.0",
-    "chai": "~1.8.1"
-  }
+    "name": "toucan",
+    "version": "0.1.0",
+    "author": "Jordan <jordwest@gmail.com>",
+    "description": "A super simple permission module for access control with tokens",
+    "main": "./toucan.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jordwest/toucan.git"
+    },
+    "devDependencies": {
+        "mocha": "~1.17.0",
+        "chai": "~1.8.1"
+    },
+    "keywords": [
+        "permissions",
+        "role",
+        "access"
+    ],
+    "license": "MIT",
+    "engines": {
+        "node": ">=0.10"
+    }
 }
