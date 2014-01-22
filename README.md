@@ -3,7 +3,7 @@ toucan
 
 ## Super simple access tokens for Javascript
 
-Create access tokens with a set of permission, then pass the token around and let consumers check the token for permissions when needed.
+Create access tokens with a set of permissions, then pass the token around and let consumers check the token for permissions when needed.
 
 
 Getting Started
@@ -20,10 +20,9 @@ A simple example
 var Toucan = require('toucan');
 
 var token = new Toucan();
-token
-    .permit('eat')
-    .deny('jump')
-    .lock()
+token.permit('eat')
+     .deny('jump')
+     .lock();
 
 
 // Elsewhere in your application
