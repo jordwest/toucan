@@ -1,0 +1,8 @@
+{
+  "name": "toucan",
+  "description": "A super simple library for access control with access tokens",
+  "devDependencies": {
+    "mocha": "~1.17.0",
+    "chai": "~1.8.1"
+  }
+}
