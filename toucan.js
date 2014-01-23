@@ -3,25 +3,49 @@ var Toucan = module.exports = function(){
 
     var perms = {}
 
+    var _permit = function(permission){
+        if(locked)
+        {
+            throw new Error("Cannot add permissions after token has been locked");
+        }
+
+        perms[permission] = true;
+    }
+
+    var _deny = function(permission){
+        if(locked)
+        {
+            throw new Error("Cannot add permissions after token has been locked");
+        }
+
+        perms[permission] = false;
+    }
+
     return {
         permit: function(permission)
         {
-            if(locked)
+            if(permission instanceof Array)
             {
-                throw new Error("Cannot add permissions after token has been locked");
+                for(var i = 0; i < permission.length; i++)
+                {
+                    _permit(permission[i]);
+                }
+            }else{
+                _permit(permission);
             }
-
-            perms[permission] = true;
             return this;
         },
         deny: function(permission)
         {
-            if(locked)
+            if(permission instanceof Array)
             {
-                throw new Error("Cannot add permissions after token has been locked");
+                for(var i = 0; i < permission.length; i++)
+                {
+                    _deny(permission[i]);
+                }
+            }else{
+                _deny(permission);
             }
-
-            perms[permission] = false;
             return this;
         },
         lock: function(permission)
@@ -55,6 +79,11 @@ var Toucan = module.exports = function(){
 
             // Deny by default
             return false;
+        },
+        cannot: function(permission)
+        {
+            // Convenience function
+            return !this.can(permission);
         }
     }
 }

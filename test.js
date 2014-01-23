@@ -7,12 +7,6 @@ describe('Toucan', function(){
         assert.isObject(token);
     });
 
-    it('should allow method chaining', function(){
-        var token = new Toucan();
-        assert.equal(token, token.permit('test'), 'permit does not return the token');
-        assert.equal(token, token.deny('test2'), 'deny does not return the token');
-        assert.equal(token, token.lock(), 'lock does not return the token');
-    });
 
     it('should permit something', function(){
         var token = new Toucan();
@@ -52,12 +46,6 @@ describe('Toucan', function(){
         }, Error);
     });
 
-    it('should allow all', function(){
-        var token = new Toucan();
-        token.permit("*").lock();
-
-        assert.equal(true, token.can('do anything'));
-    });
 
     it('should allow all except explicitly denied permissions', function(){
         var token = new Toucan();
@@ -77,5 +65,66 @@ describe('Toucan', function(){
         assert.equal(false, token.can('sleep'));
 
     });
+
+    describe('cannot function', function(){
+        it('should return false when something is permitted', function(){
+            var token = new Toucan();
+            token.permit('something').lock();
+
+            assert.isFalse(token.cannot('something'));
+        });
+
+        it('should return true when something is denied', function(){
+            var token = new Toucan();
+            token.permit('something').lock();
+
+            assert.isTrue(token.cannot('blow up'));
+        });
+    });
+
+    describe('permit function', function(){
+        it('should allow permissions to be specified with an array', function(){
+            var token = new Toucan();
+            token.permit(['one', 'two']).lock();
+
+            assert.isTrue(token.can('one'));
+            assert.isTrue(token.can('two'));
+            assert.isFalse(token.can('three'));
+        });
+
+        it('should allow all', function(){
+            var token = new Toucan();
+            token.permit('*').lock();
+
+            assert.equal(true, token.can('do anything'));
+        });
+        it('should allow method chaining', function(){
+            var token = new Toucan();
+            assert.equal(token, token.permit('test'), 'permit does not return the token');
+        });
+    });
+
+    describe('deny function', function(){
+        it('should allow permissions to be specified with an array', function(){
+            var token = new Toucan();
+            token.permit('*').deny(['one', 'two']).lock();
+
+            assert.isFalse(token.can('one'));
+            assert.isFalse(token.can('two'));
+            assert.isTrue(token.can('three'));
+        });
+        it('should allow method chaining', function(){
+            var token = new Toucan();
+            assert.equal(token, token.deny('test2'), 'deny does not return the token');
+        });
+    });
+
+    describe('locking', function(){
+        it('should allow method chaining', function(){
+            var token = new Toucan();
+            assert.equal(token, token.lock(), 'lock does not return the token');
+        });
+
+    })
 
 })
