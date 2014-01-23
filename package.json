@@ -1,6 +1,6 @@
 {
     "name": "toucan",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "author": "Jordan <jordwest@gmail.com>",
     "description": "A super simple permission module for access control with tokens",
     "main": "./toucan.js",
