@@ -45,14 +45,12 @@ var RoleToken = module.exports = function(role){
 
     if(role == 'admin')
     {
-        token.permit('edit all users')
-             .permit('edit files');
+        token.permit(['edit all users', 'edit files']);
     }
 
     if(role == 'admin' || role == 'user')
     {
-        token.permit('edit own profile')
-             .permit('edit own files');
+        token.permit(['edit own profile', 'edit own files']);
     }
 
     token.permit('view public pages');
@@ -79,6 +77,11 @@ if(user)
 if(token.can('edit own profile'))
 {
     // ..... edit profile ......
+}
+
+if(token.cannot('view public pages'))
+{
+    message.flash('You are banned');
 }
 ```
 
